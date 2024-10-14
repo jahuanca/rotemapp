@@ -1,5 +1,6 @@
 import 'package:app_metor/src/solicitar/core/strings.dart';
 import 'package:app_metor/src/solicitar/ui/pages/detail_solicitud/detail_solicitud_controller.dart';
+import 'package:app_metor/src/utils/core/formats.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:utils/utils.dart';
@@ -23,7 +24,7 @@ class DetailSolicitudPage extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.calendar_month_outlined),
               title: const Text('Fecha de pago'),
-              subtitle: Text(_.solicitud?.fechasolicitud ?? ''),
+              subtitle: Text(_.solicitud?.fechasolicitud.formatUI() ?? ''),
             ),
             ListTile(
               leading: const Icon(Icons.price_change_outlined),

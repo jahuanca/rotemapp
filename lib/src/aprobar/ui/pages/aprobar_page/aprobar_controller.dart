@@ -20,7 +20,10 @@ class AprobarController extends GetxController{
     super.onInit();
   }
 
-
+  void onChangePendiente(val, int index){
+    pendientes[index].isAccepted = val;
+    update([listadoId]);
+  }
 
 
 }

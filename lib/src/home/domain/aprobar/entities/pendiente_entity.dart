@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:app_metor/src/utils/core/formats.dart';
 import 'package:utils/utils.dart';
 
 PendienteEntity pendienteEntityFromJson(String str) => PendienteEntity.fromJson(json.decode(str));
@@ -12,11 +13,14 @@ class PendienteEntity {
     int id;
     String codigo;
     String? nomcomp;
-    String fechasolicitud;
+    DateTime fechasolicitud;
     double importe;
     String codigoestado;
     String detalleestado;
     String? area;
+    String? concepto;
+
+    bool? isAccepted;
     double? importeTotal;
 
     PendienteEntity({
@@ -28,7 +32,9 @@ class PendienteEntity {
         required this.importe,
         required this.codigoestado,
         required this.detalleestado,
+        required this.concepto,
         this.area,
+        this.isAccepted,
         this.importeTotal = 0,
     });
 
@@ -67,11 +73,14 @@ class PendienteEntity {
         id: json["id"],
         codigo: json["codigo"],
         nomcomp: json["nomcomp"],
-        fechasolicitud: json["fechasolicitud"],
+        fechasolicitud: (json["fechasolicitud"] as String).convertToDatetime(),
         importe: double.tryParse(json["importe"]) ?? 0,
         codigoestado: json["codigoestado"],
         detalleestado: json["detalleestado"],
         area: json["area"],
+        concepto: json["lgtxt"],
+
+        isAccepted: json["isAccepted"],
         importeTotal: (json['importeTotal'] == null) ? null : json["importeTotal"],
     );
 
@@ -80,11 +89,13 @@ class PendienteEntity {
         "id": id,
         "codigo": codigo,
         "nomcomp": nomcomp,
-        "fechasolicitud": fechasolicitud,
+        "fechasolicitud": fechasolicitud.formatStringByJson(),
         "importe": importe,
         "codigoestado": codigoestado,
         "detalleestado": detalleestado,
         "area": area,
+        "isAccepted": isAccepted,
         "importeTotal": importeTotal,
+        "lgtxt": concepto,
     };
 }

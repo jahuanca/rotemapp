@@ -1,6 +1,7 @@
 import 'package:app_metor/src/home/domain/aprobar/entities/pendiente_entity.dart';
 import 'package:app_metor/src/aprobar/ui/pages/home_aprobar/home_aprobar_controller.dart';
 import 'package:app_metor/src/login/core/strings.dart';
+import 'package:app_metor/src/utils/core/formats.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,7 @@ class HomeAprobarPage extends StatelessWidget {
                   itemCount: _.agrupadas.length,
                   itemBuilder: (context, index) => area(
                       title: _.agrupadas.keys.elementAt(index), 
-                      amount: 'S/ ${ _.agrupadas.values.elementAt(index).first.importeTotal}',
+                      amount: 'S/ ${ _.agrupadas.values.elementAt(index).first.importeTotal?.formatImporte()}',
                       quantity: _.agrupadas.values.elementAt(index).length.toString(),
                       index: index,
                       ),

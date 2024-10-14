@@ -93,7 +93,7 @@ class ListadoAprobarPage extends StatelessWidget {
                           nameUser.toString(),
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text(pendientesByUser.first.fechasolicitud),
+                        Text(pendientesByUser.first.fechasolicitud.formatUI()),
                       ],
                     ),
                   )),

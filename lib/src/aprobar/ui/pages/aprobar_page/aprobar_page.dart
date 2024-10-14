@@ -18,11 +18,14 @@ class AprobarPage extends StatelessWidget {
         body: GetBuilder<AprobarController>(
           id: listadoId,
           builder: (_) => ListView.builder(
-            itemCount: _.pendientes.length,
-            itemBuilder: (context, index) => _item(
-              pendiente: _.pendientes[index],
-              index: index,
-            ),
+            itemCount: _.pendientes.length + 1,
+            itemBuilder: (context, index) => (index == 0)
+                ? _header()
+                : _item(
+                    pendiente: _.pendientes[index - 1],
+                    index: index - 1,
+                    controller: _,
+                  ),
           ),
         ),
       ),
@@ -32,6 +35,7 @@ class AprobarPage extends StatelessWidget {
   Widget _item({
     required PendienteEntity pendiente,
     required int index,
+    required AprobarController controller,
   }) {
     return Row(
       children: [
@@ -46,25 +50,71 @@ class AprobarPage extends StatelessWidget {
         Expanded(
           flex: 4,
           child: ListTile(
-            title: Expanded(child: Text(pendiente.codigo)),
-            subtitle: Text(pendiente.fechasolicitud),
+            title: Text(pendiente.concepto ?? 'Sin concepto'),
+            subtitle: Text(pendiente.fechasolicitud.formatUI()),
           ),
         ),
-        const Expanded(
+        Expanded(
           flex: 3,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: Radio(value: 0, groupValue: '133', onChanged: print),
+                child: Radio(
+                    value: true,
+                    activeColor: const Color(0xFF6200EE),
+                    groupValue: pendiente.isAccepted,
+                    onChanged: (val) =>
+                        controller.onChangePendiente(val, index)),
               ),
               Expanded(
-                child: Radio(value: 0, groupValue: '133', onChanged: print),
+                child: Radio(
+                    value: false,
+                    groupValue: pendiente.isAccepted,
+                    onChanged: (val) =>
+                        controller.onChangePendiente(val, index)),
               ),
             ],
           ),
         )
       ],
+    );
+  }
+
+  Widget _header() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          const Expanded(
+              flex: 2,
+              child: Text('Monto',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ))),
+          const Expanded(
+            flex: 4,
+            child: Text('Concepto',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                )),
+          ),
+          Expanded(
+            flex: 3,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(child: Icon(Icons.check, color: successColor(),)),
+                Expanded(child: Icon(Icons.close, color: dangerColor(),)),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
