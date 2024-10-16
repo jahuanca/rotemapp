@@ -18,8 +18,12 @@ class SolicitarRepositoryImplementation extends SolicitarRepository{
   });
 
   @override
-  Future<ResultType<List<PendienteEntity>, ErrorEntity>> getSolicitudes({required String cedula}) async {
-    return datastore.getSolicitudes(cedula: cedula);
+  Future<ResultType<List<PendienteEntity>, ErrorEntity>> getSolicitudes({
+    required String cedula,
+    required DateTime fechaInicio,
+    required DateTime fechaFin,
+    }) async {
+    return datastore.getSolicitudes(cedula: cedula, fechaInicio: fechaInicio, fechaFin: fechaFin);
   }
 
   @override

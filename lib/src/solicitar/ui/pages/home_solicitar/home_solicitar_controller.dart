@@ -16,14 +16,15 @@ import 'package:get/get.dart';
 
 class HomeSolicitarController extends GetxController{
 
-  bool sentFromApprovePage = false;
   List<PendienteEntity> pendientes = [];
   List<PendienteEntity> pendientesMostradas = [];
   String valorBuscar = emptyString;
   TextEditingController valorBuscadoTextEditingController = TextEditingController();
   FocusNode focusValorBuscado = FocusNode();
-
   GetSolicitudesUseCase getSolicitudesUseCase;
+
+  late DateTime fechaInicio;
+  late DateTime fechaFin;
 
   HomeSolicitarController({
     required this.getSolicitudesUseCase,
@@ -32,28 +33,26 @@ class HomeSolicitarController extends GetxController{
 
   @override
   void onInit() {
-    if(Get.arguments != null){
-      if(Get.arguments[pendientesArgument] != null){
-        sentFromApprovePage = true;
-        pendientes.addAll(Get.arguments[pendientesArgument] as List<PendienteEntity>);
-        pendientesMostradas.addAll(pendientes);
-      }else{
-      }
-    }else{
-      getSolicitudes();
-    }
+    fechaInicio = DateTime.now();
+    fechaFin = fechaInicio.add(const Duration(days: 30));
+    getSolicitudes();
     super.onInit();
   }
 
   Future<void> getSolicitudes() async{
     String? cedula = UserPreferences().getString(cedulaKey);
     if( cedula != null ){
-      ResultType<List<PendienteEntity>, ErrorEntity> result = await getSolicitudesUseCase.execute(cedula: cedula);
+      ResultType<List<PendienteEntity>, ErrorEntity> result = 
+        await getSolicitudesUseCase.execute(
+          cedula: cedula,
+          fechaInicio: fechaInicio,
+          fechaFin: fechaFin,  
+        );
       if(result is Success){
         pendientes.clear();
         pendientesMostradas.clear();
         pendientes.addAll(result.data as List<PendienteEntity>);
-        pendientesMostradas.addAll(pendientes);
+        pendientesMostradas.addAll(result.data as List<PendienteEntity>);
       }
     }
     update([listadoId]);
@@ -68,7 +67,6 @@ class HomeSolicitarController extends GetxController{
 
   void goDetailSolicitud(int index){
     Get.to(()=> const DetailSolicitudPage(), arguments: {
-      sentFromApprovePageParameter: sentFromApprovePage,
       pendienteEntityArgument: pendientes[index]
     });
   }

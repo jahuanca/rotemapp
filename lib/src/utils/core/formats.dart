@@ -6,6 +6,8 @@ extension DateParsers on DateTime {
   String formatStringByJson() =>'$year$month$day';
 
   String formatUI() => DateFormat('dd MMMM yyyy', 'es').format(this);
+
+  String formatDate() =>DateFormat('dd/MM/yy').format(this);
   
 }
 

@@ -1,5 +1,6 @@
 import 'package:app_metor/src/solicitar/core/strings.dart';
 import 'package:app_metor/src/solicitar/ui/pages/home_solicitar/home_solicitar_controller.dart';
+import 'package:app_metor/src/utils/core/formats.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:utils/utils.dart';
@@ -18,9 +19,7 @@ class HomeSocilitarPage extends StatelessWidget {
       init: controller,
       builder: (_) => Scaffold(
         appBar: appBarWidget(text: 'Solicitudes'),
-        floatingActionButton: _.sentFromApprovePage
-            ? Container()
-            : FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
                 onPressed: _.goAddSolicitud,
                 child: const Icon(Icons.add),
               ),
@@ -32,14 +31,13 @@ class HomeSocilitarPage extends StatelessWidget {
               Column(
                 children: [
                   _searchAndFilter(controller: _),
-                  if (!_.sentFromApprovePage)
                     Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TagWidget(
                             padding: const EdgeInsets.only(left: 10, top: 4),
-                            title: '20/10/24 - 25/10/24',
+                            title: '${controller.fechaInicio.formatDate()} - ${controller.fechaFin.formatDate()}',
                             icon: Icons.calendar_month_outlined,
                             textColorAndIcon: Colors.white,
                           ),
@@ -120,21 +118,14 @@ class HomeSocilitarPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          controller.sentFromApprovePage
-                              ? controller.pendientesMostradas[index].nomcomp
+                              controller.pendientesMostradas[index].concepto
                                   .toString()
-                              : controller
-                                  .pendientesMostradas[index].fechasolicitud
-                                  .toString(),
+                              ,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          controller.sentFromApprovePage ?
                           controller
-                            .pendientesMostradas[index].fechasolicitud
-                            .toString()
-                          : "S/ ${controller
-                            .pendientesMostradas[index].importe}"
+                            .pendientesMostradas[index].fechasolicitud.formatUI()
                             ),
                       ],
                     ),
@@ -143,9 +134,7 @@ class HomeSocilitarPage extends StatelessWidget {
                   flex: 1,
                   child: Center(
                       child: Text(
-                    controller.sentFromApprovePage
-                        ? 'S/ ${controller.pendientesMostradas[index].importe}'
-                        : '',
+                    'S/ ${controller.pendientesMostradas[index].importe.formatImporte()}',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -183,7 +172,6 @@ class HomeSocilitarPage extends StatelessWidget {
                   icon: const Icon(Icons.search_outlined),
                 ),
               )),
-          if (!controller.sentFromApprovePage)
             IconButtonWidget(
                 onPressed: controller.goFilters,
                 padding: const EdgeInsets.symmetric(

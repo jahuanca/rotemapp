@@ -12,8 +12,12 @@ class GetSolicitudesUseCase{
     required this.repository,
   });
 
-  Future<ResultType<List<PendienteEntity>, ErrorEntity>> execute({required String cedula}) async{
-    return await repository.getSolicitudes(cedula: cedula);
+  Future<ResultType<List<PendienteEntity>, ErrorEntity>> execute({
+    required String cedula,
+    required DateTime fechaInicio,
+    required DateTime fechaFin,
+    }) async{
+    return await repository.getSolicitudes(cedula: cedula, fechaInicio: fechaInicio, fechaFin: fechaFin);
   }
 
 }

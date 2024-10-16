@@ -96,12 +96,12 @@ class NuevaSolicitudController extends GetxController{
   }
 
   Future<void> crearSolicitud() async{
-    for (GetUserAmountRequest r in request) {
-      if(r.errorAmount != null || r.importe == null){
+    for (GetUserAmountRequest? r in request) {
+      if(r?.errorAmount != null || r?.importe == null){
         showSnackbarWidget(
           context: Get.overlayContext!, 
           typeSnackbar: TypeSnackbar.error, 
-          message: 'El monto del concepto ${r.codigoAmount} esta errado.');
+          message: 'El monto del concepto ${r?.codigoAmount} esta errado.');
         return;
       }
     }
@@ -121,6 +121,13 @@ class NuevaSolicitudController extends GetxController{
   }
 
   Future<void> _createUserRequest({required XCsrfTokenResponse tokenResponse}) async{
+
+    List<GetUserAmountRequest> onlyNotNull = [];
+
+    for (GetUserAmountRequest? r in request) {
+      if(r != null) onlyNotNull.add(r);
+    }
+
     ResultType<List<CreateUserRequestResponse>, ErrorEntity> resultType = await createUserRequestUseCase.execute(
       requests: request, 
       token: tokenResponse,);

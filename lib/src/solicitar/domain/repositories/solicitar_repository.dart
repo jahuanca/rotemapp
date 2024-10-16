@@ -9,7 +9,9 @@ import 'package:app_metor/src/utils/data/error_entity.dart';
 
 abstract class SolicitarRepository{
   Future<ResultType<List<PendienteEntity>, ErrorEntity>> getSolicitudes({
-    required String cedula
+    required String cedula,
+    required DateTime fechaInicio,
+    required DateTime fechaFin,
   });
   Future<ResultType<List<AmountEntity>, ErrorEntity>> getUserAmounts({
     required String cedula

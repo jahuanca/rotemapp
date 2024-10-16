@@ -18,14 +18,18 @@ import 'package:app_metor/src/utils/data/error_entity.dart';
 class SolicitarDatastoreImplementation extends SolicitarDatastore{
   
   @override
-  Future<ResultType<List<PendienteEntity>, ErrorEntity>> getSolicitudes({required String cedula}) async{
+  Future<ResultType<List<PendienteEntity>, ErrorEntity>> getSolicitudes({
+    required String cedula,
+    required DateTime fechaInicio,
+    required DateTime fechaFin,
+    }) async{
     final http = AppHttpManager();
 
     AppResponseHttp res = await http.get(
       url: getSolicitudesUrl(
-        cedula: cedula, 
-        fechaInicio: '2024-09-01T00:00:00',
-        fechaFin: '2024-09-30T00:00:00'
+        cedula: cedula,
+        fechaInicio: fechaInicio.toIso8601String(),
+        fechaFin: fechaFin.toIso8601String()
       ),
     );
 
@@ -96,7 +100,6 @@ class SolicitarDatastoreImplementation extends SolicitarDatastore{
       url: createUserRequestUrl,
       replaceAllUrl: true,
       body: data,
-      //body: '[{"PERNR":"04791013","FECHASOLICITUD":"09102024", "IMPORTE":"100.00", "CODIGOCC":"3202"},{"PERNR":"04791013","FECHASOLICITUD":"09102024","IMPORTE":"150.00","CODIGOCC":"3207"}]',
       headers: {
         xCsrfTokenHeader: token.token,
         HttpHeaders.cookieHeader: token.cookie
