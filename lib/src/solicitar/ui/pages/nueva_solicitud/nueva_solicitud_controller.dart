@@ -21,9 +21,9 @@ class NuevaSolicitudController extends GetxController{
   GetTokenCreateRequestUseCase getTokenCreateRequestUseCase;
   CreateUserRequestUseCase createUserRequestUseCase;
 
-  List<AmountEntity> amounts = [];
+  List<AmountEntity> amountsOfResponseUser = [];
   bool validando = false;
-  List<GetUserAmountRequest> request = [];
+  Map<int, GetUserAmountRequest> requestsToSendServer = {};
   String? cedula;
 
   NuevaSolicitudController({
@@ -47,7 +47,7 @@ class NuevaSolicitudController extends GetxController{
       ResultType<List<AmountEntity>, ErrorEntity> resultType = 
         await getUserAmountsUseCase.execute(cedula: cedula.toString());
       if(resultType is Success){
-        amounts = resultType.data as List<AmountEntity>;
+        amountsOfResponseUser = resultType.data as List<AmountEntity>;
       }
       validando = false;
       update([validandoId, listadoId]);
@@ -57,51 +57,52 @@ class NuevaSolicitudController extends GetxController{
   void onChangeChecked(bool? value, int index){
     if( cedula == null ) return;
     if(value ?? false){
-      request.add(
+      requestsToSendServer[index] = 
         GetUserAmountRequest(
           cedula: cedula.toString(), 
           fechasolicitud: DateTime.now(), 
-          importe: null, 
-          codigoAmount: amounts[index].codigocc )
-      );
+          importe: null,
+          concepto: amountsOfResponseUser[index].detallecodigocc,
+          codigoAmount: amountsOfResponseUser[index].codigocc )
+      ;
     }else{
-      request.removeWhere((e) => e.codigoAmount == amounts[index].codigocc,);
+      requestsToSendServer.remove(index);
     }
     FocusScope.of(Get.overlayContext!).unfocus();
-    amounts[index].showItem = value;
+    amountsOfResponseUser[index].showItem = value;
     update(['$amountId$index', requestId]);
   }
 
   void onChangeAmount(String value, int index){
-    request[index].importe = value;
-    request[index].errorAmount = validatorText(
+    requestsToSendServer[index]?.importe = value;
+    requestsToSendServer[index]?.errorAmount = validatorText(
       text: value, 
       label: '',
       rules: {
         RuleValidator.isRequired: true,
         RuleValidator.isDouble: true,
         RuleValidator.minValue: 0,
-        RuleValidator.maxValue: double.parse(amounts[index].importe),
+        RuleValidator.maxValue: double.parse(amountsOfResponseUser[index].importe),
         
       }
     )?.trim().capitalizeFirst;
 
-    if(request[index].errorAmount == null ){
-      request[index].importe = value;
+    if(requestsToSendServer[index]?.errorAmount == null ){
+      requestsToSendServer[index]?.importe = value;
     }else{
-      request[index].importe = null;
+      requestsToSendServer[index]?.importe = null;
     }
 
     update(['$amountId$index']);
   }
 
   Future<void> crearSolicitud() async{
-    for (GetUserAmountRequest? r in request) {
-      if(r?.errorAmount != null || r?.importe == null){
+    for (GetUserAmountRequest r in requestsToSendServer.values) {
+      if(r.errorAmount != null || r.importe == null){
         showSnackbarWidget(
           context: Get.overlayContext!, 
           typeSnackbar: TypeSnackbar.error, 
-          message: 'El monto del concepto ${r?.codigoAmount} esta errado.');
+          message: 'El monto del concepto ${r.concepto} esta errado.');
         return;
       }
     }
@@ -121,15 +122,8 @@ class NuevaSolicitudController extends GetxController{
   }
 
   Future<void> _createUserRequest({required XCsrfTokenResponse tokenResponse}) async{
-
-    List<GetUserAmountRequest> onlyNotNull = [];
-
-    for (GetUserAmountRequest? r in request) {
-      if(r != null) onlyNotNull.add(r);
-    }
-
     ResultType<List<CreateUserRequestResponse>, ErrorEntity> resultType = await createUserRequestUseCase.execute(
-      requests: request, 
+      requests: requestsToSendServer.values.toList(), 
       token: tokenResponse,);
     if(resultType is Success){
       for (var response in resultType.data as List<CreateUserRequestResponse>) {

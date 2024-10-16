@@ -16,6 +16,7 @@ class GetUserAmountRequest {
     String? importe;
     String codigoAmount;
     String? errorAmount;
+    String? concepto;
 
     GetUserAmountRequest({
         required this.cedula,
@@ -23,6 +24,7 @@ class GetUserAmountRequest {
         this.importe,
         required this.codigoAmount,
         this.errorAmount,
+        this.concepto,
     });
 
     factory GetUserAmountRequest.fromJson(Map<String, dynamic> json) => GetUserAmountRequest(
@@ -31,6 +33,7 @@ class GetUserAmountRequest {
         importe: json["IMPORTE"],
         codigoAmount: json["CODIGOCC"],
         errorAmount: json["errorAmount"],
+        concepto: json["concepto"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -39,6 +42,7 @@ class GetUserAmountRequest {
         "IMPORTE": importe,
         "CODIGOCC": codigoAmount,
         "errorAmount": errorAmount,
+        "concepto": concepto,
     };
 
     Map<String, dynamic> toJsonByServer() => {

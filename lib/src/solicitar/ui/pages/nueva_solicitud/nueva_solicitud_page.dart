@@ -28,7 +28,7 @@ class NuevaSolicitudPage extends StatelessWidget {
             ),
             bottomNavigationBar: GetBuilder<NuevaSolicitudController>(
               id: requestId,
-              builder: (_) => _.request.isEmpty
+              builder: (_) => _.requestsToSendServer.isEmpty
                   ? const SizedBox()
                   : ButtonWidget(
                       padding: const EdgeInsets.symmetric(
@@ -39,9 +39,9 @@ class NuevaSolicitudPage extends StatelessWidget {
             body: GetBuilder<NuevaSolicitudController>(
               id: listadoId,
               builder: (_) => ListView.builder(
-                itemCount: _.amounts.length,
+                itemCount: _.amountsOfResponseUser.length,
                 itemBuilder: (context, index) => _itemAmount(
-                  amount: _.amounts[index],
+                  amount: _.amountsOfResponseUser[index],
                   index: index,
                   size: size,
                 ),
@@ -93,7 +93,7 @@ class NuevaSolicitudPage extends StatelessWidget {
                         textInputType: TextInputType.number,
                         hintText: 'Monto solicitado',
                         onChanged: (val) => _.onChangeAmount(val, index),
-                        error: _.request[index].errorAmount,
+                        error: _.requestsToSendServer[index]?.errorAmount,
                       ),
                     )
                   : Container(),
