@@ -31,7 +31,7 @@ class HomeSocilitarPage extends StatelessWidget {
               Column(
                 children: [
                   _searchAndFilter(controller: _),
-                    Row(
+                  Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

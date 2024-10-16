@@ -33,7 +33,7 @@ class HomeSolicitarController extends GetxController{
 
   @override
   void onInit() {
-    fechaInicio = DateTime.now();
+    fechaInicio = DateTime.now().subtract(const Duration(days: 10));
     fechaFin = fechaInicio.add(const Duration(days: 30));
     getSolicitudes();
     super.onInit();
@@ -87,9 +87,9 @@ class HomeSolicitarController extends GetxController{
   }
 
   void clearValorBuscado(){
-    valorBuscadoTextEditingController.text = "";
+    valorBuscadoTextEditingController.text = emptyString;
     pendientesMostradas.addAll(pendientes);
-    valorBuscar = "";
+    valorBuscar = emptyString;
     focusValorBuscado.unfocus();
     update([valorBuscadoId, listadoId]);
   }

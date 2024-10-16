@@ -38,7 +38,7 @@ class HomeAprobarController extends GetxController {
           await getPedientesAprobarUseCase.execute(cedula: cedula);
       if (result is Success) {
         _pendientesEntity.addAll(result.data);
-        agrupadas = groupBy(_pendientesEntity.toList(), (e) => e.area ?? e.codigo);
+        agrupadas = groupBy(_pendientesEntity.toList(), (e) => e.concepto ?? e.codigo );
         _calcularImporte();
       } else {
 
@@ -61,7 +61,8 @@ class HomeAprobarController extends GetxController {
 
   void goListadoAprobar(int index, Map<String, List<PendienteEntity>> groupByUsers) {
     Get.to(() => ListadoAprobarPage(), arguments: {
-      groupByUsersArgument: groupByUsers
+      groupByUsersArgument: groupByUsers,
+      conceptArgument: agrupadas.keys.elementAt(index),
     }, binding: ListadoAprobarBinding()
     );
   }

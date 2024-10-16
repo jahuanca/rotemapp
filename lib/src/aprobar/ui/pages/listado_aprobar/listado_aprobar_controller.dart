@@ -1,9 +1,9 @@
 
 import 'package:app_metor/src/aprobar/ui/pages/aprobar_page/aprobar_page.dart';
 import 'package:app_metor/src/home/domain/aprobar/entities/pendiente_entity.dart';
+import 'package:app_metor/src/login/core/strings.dart';
 import 'package:app_metor/src/solicitar/core/strings.dart';
 import 'package:app_metor/src/solicitar/di/nueva_solicitud_binding.dart';
-import 'package:app_metor/src/solicitar/ui/pages/filter/filter_page.dart';
 import 'package:app_metor/src/solicitar/ui/pages/nueva_solicitud/nueva_solicitud_page.dart';
 import 'package:app_metor/src/utils/core/strings.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,9 @@ class ListadoAprobarController extends GetxController{
   String valorBuscar = emptyString;
   TextEditingController valorBuscadoTextEditingController = TextEditingController();
   FocusNode focusValorBuscado = FocusNode();
-
+  bool isSelectionView = false;
+  List<PendienteEntity> selections = [];
+  String concepto = emptyString;
 
   ListadoAprobarController();
 
@@ -28,6 +30,9 @@ class ListadoAprobarController extends GetxController{
         pendientes.addAll(Get.arguments[groupByUsersArgument] as Map<String,List<PendienteEntity>>);
         pendientesMostradas.addAll(pendientes);
       }else{
+      }
+      if(Get.arguments[conceptArgument] != null){
+        concepto = Get.arguments[conceptArgument] as String;
       }
     }else{}
     super.onInit();
@@ -46,8 +51,22 @@ class ListadoAprobarController extends GetxController{
     });
   }
 
-  void goFilters(){
-    Get.to(()=> const FilterPage());
+  void changeSelectionView(){
+    selections.clear();
+    isSelectionView = !isSelectionView;
+    update([pageId]);
+  }
+
+  void onChangeSelection(List<PendienteEntity> pendientes, bool? value){
+    if(value ?? false){
+      selections.addAll(
+        pendientes
+      );
+    }
+    else{
+      selections.removeWhere((element) => element.nomcomp == pendientes.first.nomcomp,);
+    }
+    update([pageId]);
   }
 
   void onChangedValorBuscar(String value){

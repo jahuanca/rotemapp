@@ -15,6 +15,16 @@ class AprobarPage extends StatelessWidget {
       init: AprobarController(),
       builder: (_) => Scaffold(
         appBar: appBarWidget(text: 'Aprobar o rechazar', hasArrowBack: true),
+        bottomNavigationBar: GetBuilder<AprobarController>(
+              id: seleccionadosId,
+              builder: (_) => _.pendientes.any((e) => e.isAccepted != null,)
+                  ? ButtonWidget(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 50),
+                      onTap: null,
+                      text: 'Enviar')
+                  : const SizedBox(),
+            ),
         body: GetBuilder<AprobarController>(
           id: listadoId,
           builder: (_) => ListView.builder(

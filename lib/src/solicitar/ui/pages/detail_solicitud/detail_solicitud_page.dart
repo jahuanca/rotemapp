@@ -1,6 +1,7 @@
 import 'package:app_metor/src/solicitar/core/strings.dart';
 import 'package:app_metor/src/solicitar/ui/pages/detail_solicitud/detail_solicitud_controller.dart';
 import 'package:app_metor/src/utils/core/formats.dart';
+import 'package:app_metor/src/utils/core/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:utils/utils.dart';
@@ -10,7 +11,6 @@ class DetailSolicitudPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
 
     return GetBuilder<DetailSolicitudController>(
       init: DetailSolicitudController(),
@@ -18,9 +18,14 @@ class DetailSolicitudPage extends StatelessWidget {
       builder: (_) => Scaffold(
         appBar: appBarWidget(
             hasArrowBack: true,
-            text: _.isNewDetail ? 'Crear solicitud' : 'Detalle de solicitud'),
+            text: 'Detalle de solicitud'),
         body: Column(
           children: [
+            ListTile(
+              leading: const Icon(Icons.view_timeline_outlined),
+              title: const Text('Concepto'),
+              subtitle: Text(_.solicitud?.concepto ?? emptyString),
+            ),
             ListTile(
               leading: const Icon(Icons.calendar_month_outlined),
               title: const Text('Fecha de pago'),
@@ -31,16 +36,13 @@ class DetailSolicitudPage extends StatelessWidget {
               title: const Text('Monto'),
               subtitle: Text('S/ ${_.solicitud?.importe ?? '0'}'),
             ),
+            ListTile(
+              leading: const Icon(Icons.star_border),
+              title: const Text('Estado'),
+              subtitle: Text(_.solicitud?.detalleestado ?? ''),
+            ),
           ],
         ),
-        bottomNavigationBar: ButtonWidget(
-            padding: EdgeInsets.only(
-                left: size.width * 0.1, right: size.width * 0.1, bottom: 20),
-            text: _.sentFromApprovePage
-                ? 'Aprobar'
-                : _.isNewDetail
-                    ? 'Crear'
-                    : 'Sincronizar'),
       ),
     );
   }

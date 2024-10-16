@@ -22,8 +22,6 @@ class AprobarController extends GetxController{
 
   void onChangePendiente(val, int index){
     pendientes[index].isAccepted = val;
-    update([listadoId]);
+    update([listadoId, seleccionadosId]);
   }
-
-
 }
