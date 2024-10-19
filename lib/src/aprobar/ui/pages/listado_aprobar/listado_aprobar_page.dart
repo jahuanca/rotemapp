@@ -20,34 +20,45 @@ class ListadoAprobarPage extends StatelessWidget {
     return GetBuilder<ListadoAprobarController>(
       init: controller,
       id: pageId,
-      builder: (_) => Scaffold(
-        appBar: appBarWidget(
-          text: _.concepto,
-        ),
-        backgroundColor: backgroundPageColor(),
-        bottomNavigationBar: _bottomNavigation(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Column(
+      builder: (_) => Stack(
+        children: [
+          Scaffold(
+            appBar: appBarWidget(
+              text: _.concepto,
+            ),
+            backgroundColor: backgroundPageColor(),
+            bottomNavigationBar: _bottomNavigation(),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                _searchAndFilter(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Row(
-                    children: [
-                      Text('Solicitudes: ${_.pendientesMostradas.length}'),
-                      if (_.isSelectionView)
-                        Text(', elegidas: ${_.selections.length}'),
-                    ],
-                  ),
+                Column(
+                  children: [
+                    _searchAndFilter(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        children: [
+                          Text('Solicitudes: ${_.pendientesMostradas.length}'),
+                          if (_.isSelectionView)
+                            Text(', elegidas: ${_.selections.length}'),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
+                _listOfData(size: size),
               ],
             ),
-            _listOfData(size: size),
-          ],
-        ),
+          ),
+          GetBuilder<ListadoAprobarController>(
+                  id: validandoId,
+                  builder: (_) => _.validando ? Container(
+                    color: Colors.black26,
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator(),
+                  ): Container()),
+        ],
       ),
     );
   }
@@ -199,7 +210,7 @@ class ListadoAprobarPage extends StatelessWidget {
                   child: ButtonWidget(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 10),
-                      onTap: null,
+                      onTap: _.goAprobar,
                       buttonStyle: ButtonStyle.success,
                       text: 'Aprobar'),
                 ),
@@ -207,7 +218,7 @@ class ListadoAprobarPage extends StatelessWidget {
                   child: ButtonWidget(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 10),
-                      onTap: null,
+                      onTap: _.goRechazar,
                       buttonStyle: ButtonStyle.danger,
                       text: 'Rechazar'),
                 ),

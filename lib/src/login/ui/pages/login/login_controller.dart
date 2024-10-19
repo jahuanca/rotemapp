@@ -1,10 +1,10 @@
-
 import 'package:app_metor/src/home/di/main_content_binding.dart';
 import 'package:app_metor/src/home/ui/pages/main_content/main_content.dart';
 import 'package:app_metor/src/login/core/strings.dart';
 import 'package:app_metor/src/login/domain/login/entities/login_entity.dart';
 import 'package:app_metor/src/login/domain/login/entities/user_entity.dart';
 import 'package:app_metor/src/login/domain/login/use_cases/login_use_case.dart';
+import 'package:app_metor/src/login/ui/pages/global_setting/global_setting_page.dart';
 import 'package:app_metor/src/utils/core/preferencias_usuario.dart';
 import 'package:app_metor/src/utils/core/result_type.dart';
 import 'package:app_metor/src/utils/core/strings.dart';
@@ -22,9 +22,31 @@ class LoginController extends GetxController {
 
   bool validando = false;
 
+  int countClicks = 0;
+  int quantityForGlobalSetting = 5;
+
   LoginController({
     required this.loginUseCase,
   });
+
+  Future<void> changeOnClick() async{
+    countClicks = countClicks + 1;
+    if (countClicks > 3 && countClicks < quantityForGlobalSetting) {
+      showSnackbarWidget(
+          context: Get.overlayContext!,
+          typeSnackbar: TypeSnackbar.info,
+          message:
+              'Presione ${(quantityForGlobalSetting - countClicks)} veces más para ingresar a la configuración');
+    }
+    if (countClicks == quantityForGlobalSetting) {
+      countClicks = 0;
+      await showSnackbarWidget(
+          context: Get.context!,
+          typeSnackbar: TypeSnackbar.info,
+          message: 'Bienvenido a la configuración global');
+      Get.to(() => const GlobalSettingPage());
+    }
+  }
 
   void onChangedCedula(String value) {
     errorCedula = validatorText(text: value, label: 'Cédula', rules: {
@@ -61,25 +83,26 @@ class LoginController extends GetxController {
       ResultType<UserEntity, ErrorEntity> result = await loginUseCase.execute(
         loginEntity: LoginEntity(cedula: cedula, password: password),
       );
-      if(result is Success){
+      if (result is Success) {
         UserEntity userEntity = result.data as UserEntity;
         UserPreferences userPreferences = UserPreferences();
         await userPreferences.setBool(isActiveKey, true);
         await userPreferences.setString(cedulaKey, userEntity.usuario);
-        if(userEntity.detalleperfil.toLowerCase() == empleadoString.toLowerCase()){
+        if (userEntity.detalleperfil.toLowerCase() ==
+            empleadoString.toLowerCase()) {
           await userPreferences.setBool(isEmpleadoKey, true);
           await userPreferences.setBool(isAprobadorKey, false);
-        }else{
+        } else {
           await userPreferences.setBool(isEmpleadoKey, false);
           await userPreferences.setBool(isAprobadorKey, true);
         }
         await userPreferences.setObjectString(userProfileKey, userEntity);
         Get.off(() => const MainContent(), binding: MainContentBinding());
-      }else{
+      } else {
         showSnackbarWidget(
-          context: Get.context!,
-          typeSnackbar: TypeSnackbar.error,
-          message: (result.error as ErrorEntity).message);
+            context: Get.context!,
+            typeSnackbar: TypeSnackbar.error,
+            message: (result.error as ErrorEntity).message);
       }
       validando = false;
       update([pageId]);

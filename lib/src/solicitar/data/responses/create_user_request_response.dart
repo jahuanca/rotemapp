@@ -17,6 +17,8 @@ class CreateUserRequestResponse {
     String estado;
     String mensaje;
     String success;
+    String? detail;
+    String? amount;
 
     CreateUserRequestResponse({
         required this.id,
@@ -26,6 +28,8 @@ class CreateUserRequestResponse {
         required this.estado,
         required this.mensaje,
         required this.success,
+        this.detail,
+        this.amount,
     });
 
     factory CreateUserRequestResponse.fromJson(Map<String, dynamic> json) => CreateUserRequestResponse(
@@ -36,6 +40,8 @@ class CreateUserRequestResponse {
         estado: json["ESTADO"],
         mensaje: json["MENSAJE"],
         success: json["SUCCESS"],
+        detail: json["detail"],
+        amount: json["amount"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -46,5 +52,7 @@ class CreateUserRequestResponse {
         "ESTADO": estado,
         "MENSAJE": mensaje,
         "SUCCESS": success,
+        "detail": detail,
+        "amount": amount,
     };
 }

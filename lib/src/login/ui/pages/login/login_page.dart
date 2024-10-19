@@ -135,13 +135,16 @@ class LoginPage extends StatelessWidget {
                   textInputType: TextInputType.visiblePassword,
                 ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Olvidé mi contraseña'),
-                  Text('v.1.0.0'),
+                  const Text('Olvidé mi contraseña'),
+                  GestureDetector(
+                    onTap: () async => _.changeOnClick(),
+                    child: const Text('v.1.0.0')
+                  ),
                 ],
               ),
             ),

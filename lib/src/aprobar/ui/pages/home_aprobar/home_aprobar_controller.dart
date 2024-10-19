@@ -44,7 +44,7 @@ class HomeAprobarController extends GetxController {
 
       }
       validando = false;
-      update([validandoId]);
+      update([validandoId, pageId]);
     }
   }
 
@@ -59,11 +59,13 @@ class HomeAprobarController extends GetxController {
         }
   }
 
-  void goListadoAprobar(int index, Map<String, List<PendienteEntity>> groupByUsers) {
-    Get.to(() => ListadoAprobarPage(), arguments: {
+  Future<void> goListadoAprobar(int index, Map<String, List<PendienteEntity>> groupByUsers) async{
+    await Get.to(() => ListadoAprobarPage(), arguments: {
       groupByUsersArgument: groupByUsers,
       conceptArgument: agrupadas.keys.elementAt(index),
     }, binding: ListadoAprobarBinding()
     );
+
+    getPendientesAprobar();
   }
 }
