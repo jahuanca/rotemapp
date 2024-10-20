@@ -2,12 +2,10 @@
 import 'package:app_metor/src/aprobar/ui/pages/aprobar_page/aprobar_page.dart';
 import 'package:app_metor/src/home/data/responses/manage_request_response.dart';
 import 'package:app_metor/src/home/domain/aprobar/entities/pendiente_entity.dart';
-import 'package:app_metor/src/home/domain/aprobar/use_cases/get_token_manage_request_use_case.dart';
 import 'package:app_metor/src/home/domain/aprobar/use_cases/manage_request_use_case.dart';
 import 'package:app_metor/src/login/core/strings.dart';
 import 'package:app_metor/src/solicitar/core/strings.dart';
 import 'package:app_metor/src/solicitar/data/responses/create_user_request_response.dart';
-import 'package:app_metor/src/solicitar/data/responses/x_csrf_token_response.dart';
 import 'package:app_metor/src/solicitar/di/nueva_solicitud_binding.dart';
 import 'package:app_metor/src/solicitar/ui/pages/nueva_solicitud/nueva_solicitud_page.dart';
 import 'package:app_metor/src/utils/core/result_type.dart';
@@ -29,13 +27,10 @@ class ListadoAprobarController extends GetxController{
   List<PendienteEntity> selections = [];
   String concepto = emptyString;
   bool validando = false;
-
   ManageRequestUseCase manageRequestUseCase;
-  GetTokenManageRequestUseCase getTokenManageRequestUseCase;
 
   ListadoAprobarController({
     required this.manageRequestUseCase,
-    required this.getTokenManageRequestUseCase,
   });
 
   @override
@@ -142,24 +137,6 @@ class ListadoAprobarController extends GetxController{
   }) async {
     validando = true;
     update([validandoId]);
-    ResultType<XCsrfTokenResponse, ErrorEntity> resultType =
-        await getTokenManageRequestUseCase.execute();
-    if (resultType is Success) {
-      _createUserRequest(tokenResponse: resultType.data as XCsrfTokenResponse, isReject: isReject);
-    } else {
-      showSnackbarWidget(
-          context: Get.overlayContext!,
-          typeSnackbar: TypeSnackbar.error,
-          message: (resultType.error as ErrorEntity).message);
-      validando = false;
-      update([validandoId]);
-    }
-  }
-
-  Future<void> _createUserRequest(
-      {
-        required bool isReject,
-        required XCsrfTokenResponse tokenResponse}) async {
     List<ManageRequestResponse> requests = selections.map(
       (e) => ManageRequestResponse(
         id: e.id.toString(), 
@@ -170,7 +147,6 @@ class ListadoAprobarController extends GetxController{
     ResultType<List<CreateUserRequestResponse>, ErrorEntity> resultType =
         await manageRequestUseCase.execute(
       requests: requests,
-      token: tokenResponse,
     );
     if (resultType is Success) {
       List<CreateUserRequestResponse> results =
@@ -197,4 +173,5 @@ class ListadoAprobarController extends GetxController{
     validando = false;
     update([validandoId]);
   }
+
 }

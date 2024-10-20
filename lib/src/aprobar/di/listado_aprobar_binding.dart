@@ -4,7 +4,6 @@ import 'package:app_metor/src/home/data/aprobar/datastores/aprobar_datastore_imp
 import 'package:app_metor/src/home/data/aprobar/repositories/aprobar_repository_implementation.dart';
 import 'package:app_metor/src/home/domain/aprobar/datastores/aprobar_datastore.dart';
 import 'package:app_metor/src/home/domain/aprobar/repositories/aprobar_repository.dart';
-import 'package:app_metor/src/home/domain/aprobar/use_cases/get_token_manage_request_use_case.dart';
 import 'package:app_metor/src/home/domain/aprobar/use_cases/manage_request_use_case.dart';
 import 'package:get/get.dart';
 
@@ -16,15 +15,11 @@ class ListadoAprobarBinding extends Bindings{
 
     Get.lazyPut<AprobarRepository>(
         () => AprobarRepositoryImplementation(datastore: Get.find()));
-    
-    Get.lazyPut<GetTokenManageRequestUseCase>(
-        () => GetTokenManageRequestUseCase(repository: Get.find()));
 
     Get.lazyPut<ManageRequestUseCase>(
         () => ManageRequestUseCase(repository: Get.find()));
 
     Get.lazyPut<ListadoAprobarController>(() => ListadoAprobarController(
-      getTokenManageRequestUseCase: Get.find(),
       manageRequestUseCase: Get.find(),
     ),
   ); 

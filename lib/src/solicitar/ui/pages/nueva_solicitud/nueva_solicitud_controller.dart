@@ -2,10 +2,8 @@ import 'package:app_metor/src/login/core/strings.dart';
 import 'package:app_metor/src/solicitar/core/strings.dart';
 import 'package:app_metor/src/solicitar/data/request/get_user_amount_request.dart';
 import 'package:app_metor/src/solicitar/data/responses/create_user_request_response.dart';
-import 'package:app_metor/src/solicitar/data/responses/x_csrf_token_response.dart';
 import 'package:app_metor/src/solicitar/domain/entities/amount_entity.dart';
 import 'package:app_metor/src/solicitar/domain/use_cases/create_user_request_use_case.dart';
-import 'package:app_metor/src/solicitar/domain/use_cases/get_token_create_request_use_case.dart';
 import 'package:app_metor/src/solicitar/domain/use_cases/get_user_amounts_use_case.dart';
 import 'package:app_metor/src/utils/core/preferencias_usuario.dart';
 import 'package:app_metor/src/utils/core/result_type.dart';
@@ -17,7 +15,6 @@ import 'package:utils/utils.dart';
 
 class NuevaSolicitudController extends GetxController {
   GetUserAmountsUseCase getUserAmountsUseCase;
-  GetTokenCreateRequestUseCase getTokenCreateRequestUseCase;
   CreateUserRequestUseCase createUserRequestUseCase;
 
   List<AmountEntity> amountsOfResponseUser = [];
@@ -27,7 +24,6 @@ class NuevaSolicitudController extends GetxController {
 
   NuevaSolicitudController({
     required this.getUserAmountsUseCase,
-    required this.getTokenCreateRequestUseCase,
     required this.createUserRequestUseCase,
   });
 
@@ -100,29 +96,13 @@ class NuevaSolicitudController extends GetxController {
         return;
       }
     }
+
     validando = true;
     update([validandoId]);
-    ResultType<XCsrfTokenResponse, ErrorEntity> resultType =
-        await getTokenCreateRequestUseCase.execute();
-    if (resultType is Success) {
-      _createUserRequest(tokenResponse: resultType.data as XCsrfTokenResponse);
-    } else {
-      showSnackbarWidget(
-          context: Get.overlayContext!,
-          typeSnackbar: TypeSnackbar.error,
-          message: (resultType.error as ErrorEntity).message);
-      validando = false;
-      update([validandoId]);
-    }
-  }
-
-  Future<void> _createUserRequest(
-      {required XCsrfTokenResponse tokenResponse}) async {
     List<GetUserAmountRequest> requests = requestsToSendServer.values.toList();
     ResultType<List<CreateUserRequestResponse>, ErrorEntity> resultType =
         await createUserRequestUseCase.execute(
       requests: requests,
-      token: tokenResponse,
     );
     if (resultType is Success) {
       List<CreateUserRequestResponse> results =

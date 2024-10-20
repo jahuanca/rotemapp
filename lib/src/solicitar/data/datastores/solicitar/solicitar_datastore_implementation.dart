@@ -89,8 +89,11 @@ class SolicitarDatastoreImplementation extends SolicitarDatastore{
   }
 
   @override
-  Future<ResultType<List<CreateUserRequestResponse>, ErrorEntity>> createUserRequest({required List<GetUserAmountRequest> requests, required XCsrfTokenResponse token}) async{
-    final http = AppHttpManager();
+  Future<ResultType<List<CreateUserRequestResponse>, ErrorEntity>> createUserRequest({required List<GetUserAmountRequest> requests}) async{
+    ResultType<XCsrfTokenResponse, ErrorEntity> tokenRequest = await getTokenCreateRequest();
+    if(tokenRequest is Success){
+      XCsrfTokenResponse token = tokenRequest.data as XCsrfTokenResponse;
+      final http = AppHttpManager();
     List<Map<String, dynamic>> data = [];
     for (GetUserAmountRequest r in requests) {
       data.add(r.toJsonByServer());
@@ -111,6 +114,8 @@ class SolicitarDatastoreImplementation extends SolicitarDatastore{
     }else{
       return Error(error: ErrorEntity(code: '500', message: 'Ocurrio un error: ${res.body}'));
     }
+    }else{
+      return Error(error: tokenRequest.error);
+    } 
   }
-
 }

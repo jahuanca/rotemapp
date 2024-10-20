@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:app_metor/src/home/data/constants.dart';
@@ -14,10 +13,10 @@ import 'package:app_metor/src/utils/data/app_http_manager.dart';
 import 'package:app_metor/src/utils/data/app_response_http.dart';
 import 'package:app_metor/src/utils/data/error_entity.dart';
 
-class AprobarDatastoreImplementation extends AprobarDatastore{
+class AprobarDatastoreImplementation extends AprobarDatastore {
   @override
-  Future<ResultType<List<PendienteEntity>, ErrorEntity>> getPendientesAprobar({required String cedula}) async{
-    
+  Future<ResultType<List<PendienteEntity>, ErrorEntity>> getPendientesAprobar(
+      {required String cedula}) async {
     final http = AppHttpManager();
 
     AppResponseHttp res = await http.get(
@@ -25,60 +24,74 @@ class AprobarDatastoreImplementation extends AprobarDatastore{
         cedula: cedula,
       ),
     );
-    if(res.isSuccessful){
-      final sapResponse = sapResponseFromJson(
-        res.body,
-        (x)=> PendienteEntity.fromJson(x)
-        );
-      List<PendienteEntity> results 
-        = sapResponse.d.results.whereType<PendienteEntity>().toList();
+    if (res.isSuccessful) {
+      final sapResponse =
+          sapResponseFromJson(res.body, (x) => PendienteEntity.fromJson(x));
+      List<PendienteEntity> results =
+          sapResponse.d.results.whereType<PendienteEntity>().toList();
       return Success(data: results);
-    }else{
-      return Error(error: ErrorEntity(code: '500', message: 'Ocurrio un problema, contacte con informática.'));
+    } else {
+      return Error(
+          error: ErrorEntity(
+              code: '500',
+              message: 'Ocurrio un problema, contacte con informática.'));
     }
   }
 
   @override
-  Future<ResultType<XCsrfTokenResponse, ErrorEntity>> getTokenCreateRequest() async {
+  Future<ResultType<XCsrfTokenResponse, ErrorEntity>>
+      getTokenCreateRequest() async {
     final http = AppHttpManager();
 
-    AppResponseHttp res = await http.get(
-      url: getTokenManageRequestUrl,
-      replaceAllUrl: true,
-      headers: {xCsrfTokenHeader: fetchValue,}
-    );
+    AppResponseHttp res = await http
+        .get(url: getTokenManageRequestUrl, replaceAllUrl: true, headers: {
+      xCsrfTokenHeader: fetchValue,
+    });
 
-    if(res.isSuccessful){
+    if (res.isSuccessful) {
       String token = res.headers[xCsrfTokenHeader].toString();
-      String cookie = res.headers[HttpHeaders.setCookieHeader]?.split(',').last ?? emptyString;
+      String cookie =
+          res.headers[HttpHeaders.setCookieHeader]?.split(',').last ??
+              emptyString;
       return Success(data: XCsrfTokenResponse(cookie: cookie, token: token));
-    }else{
-      return Error(error: ErrorEntity(code: '500', message: 'Ocurrio un error: ${res.body}'));
+    } else {
+      return Error(
+          error: ErrorEntity(
+              code: '500', message: 'Ocurrio un error: ${res.body}'));
     }
   }
 
   @override
-  Future<ResultType<List<CreateUserRequestResponse>, ErrorEntity>> manageRequest({required List<ManageRequestResponse> requests, required XCsrfTokenResponse token}) async{
-    final http = AppHttpManager();
-    List<Map<String, dynamic>> data = [];
-    for (ManageRequestResponse r in requests) {
-      data.add(r.toJson());
-    }
-
-    AppResponseHttp res = await http.post(
-      url: manageRequestUrl,
-      replaceAllUrl: true,
-      body: data,
-      headers: {
-        xCsrfTokenHeader: token.token,
-        HttpHeaders.cookieHeader: token.cookie
+  Future<ResultType<List<CreateUserRequestResponse>, ErrorEntity>>
+      manageRequest({required List<ManageRequestResponse> requests,}) async {
+    ResultType<XCsrfTokenResponse, ErrorEntity> tokenRequest =
+        await getTokenCreateRequest();
+    if (tokenRequest is Success) {
+      XCsrfTokenResponse token = tokenRequest.data as XCsrfTokenResponse;
+      final http = AppHttpManager();
+      List<Map<String, dynamic>> data = [];
+      for (ManageRequestResponse r in requests) {
+        data.add(r.toJson());
       }
-    );
 
-    if(res.isSuccessful){ 
-      return Success(data: createUserRequestResponseFromJson(res.body));
-    }else{
-      return Error(error: ErrorEntity(code: '500', message: 'Ocurrio un error: ${res.body}'));
+      AppResponseHttp res = await http.post(
+          url: manageRequestUrl,
+          replaceAllUrl: true,
+          body: data,
+          headers: {
+            xCsrfTokenHeader: token.token,
+            HttpHeaders.cookieHeader: token.cookie
+          });
+
+      if (res.isSuccessful) {
+        return Success(data: createUserRequestResponseFromJson(res.body));
+      } else {
+        return Error(
+            error: ErrorEntity(
+                code: '500', message: 'Ocurrio un error: ${res.body}'));
+      }
+    } else {
+      return Error(error: tokenRequest.error);
     }
   }
 }

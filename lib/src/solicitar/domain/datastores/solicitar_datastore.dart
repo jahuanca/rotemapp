@@ -17,7 +17,6 @@ abstract class SolicitarDatastore{
   Future<ResultType<XCsrfTokenResponse, ErrorEntity>> getTokenCreateRequest();
   Future<ResultType<List<CreateUserRequestResponse>, ErrorEntity>> createUserRequest({
     required List<GetUserAmountRequest> requests,
-    required XCsrfTokenResponse token,
   });
 
 

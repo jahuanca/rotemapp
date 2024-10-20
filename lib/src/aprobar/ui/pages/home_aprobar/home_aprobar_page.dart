@@ -15,6 +15,9 @@ class HomeAprobarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final Size size = MediaQuery.of(context).size;
+
     return GetBuilder<HomeAprobarController>(
       init: controller,
       id: pageId,
@@ -24,9 +27,15 @@ class HomeAprobarPage extends StatelessWidget {
         body: 
            RefreshIndicator(
             onRefresh: _.getPendientesAprobar,
-             child: Stack(
+             child: _.agrupadas.isEmpty ?
+            SingleChildScrollView(
+                child: Container(
+                  alignment: Alignment.center,
+                  height: size.height - kToolbarHeight - kBottomNavigationBarHeight,
+                  child: const Text('No se encontraron resultados')))
+             : Stack(
                children: [
-                 ListView.builder(
+                ListView.builder(
                   itemCount: _.agrupadas.length,
                   itemBuilder: (context, index) => area(
                       title: _.agrupadas.keys.elementAt(index), 

@@ -13,6 +13,5 @@ abstract class AprobarDatastore{
   Future<ResultType<XCsrfTokenResponse, ErrorEntity>> getTokenCreateRequest();
   Future<ResultType<List<CreateUserRequestResponse>, ErrorEntity>> manageRequest({
     required List<ManageRequestResponse> requests,
-    required XCsrfTokenResponse token,
   });
 }
