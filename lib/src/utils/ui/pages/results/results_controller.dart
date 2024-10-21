@@ -18,6 +18,4 @@ class ResultsController extends GetxController{
     super.onInit();
   }
 
-  
-
 }

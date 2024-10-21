@@ -17,5 +17,4 @@ class MainContentBinding extends Bindings{
     
   }
 
-
 }

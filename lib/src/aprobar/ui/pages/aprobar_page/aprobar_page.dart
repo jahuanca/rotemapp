@@ -7,12 +7,14 @@ import 'package:get/get.dart';
 import 'package:utils/utils.dart';
 
 class AprobarPage extends StatelessWidget {
-  const AprobarPage({super.key});
+  AprobarPage({super.key});
+
+  final AprobarController controller = Get.find<AprobarController>();
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AprobarController>(
-      init: AprobarController(),
+      init: controller,
       builder: (_) => Scaffold(
         appBar: appBarWidget(text: 'Aprobar o rechazar', hasArrowBack: true),
         bottomNavigationBar: GetBuilder<AprobarController>(
@@ -21,7 +23,7 @@ class AprobarPage extends StatelessWidget {
                   ? ButtonWidget(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 50),
-                      onTap: null,
+                      onTap: ()=> _.goSend(),
                       text: 'Enviar')
                   : const SizedBox(),
             ),

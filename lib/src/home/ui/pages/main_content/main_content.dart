@@ -35,21 +35,17 @@ class MainContent extends StatelessWidget {
   }
 
   Widget _bottomNavigation(MainContentController controller) {
-    return BottomNavigationBar(
-        onTap: controller.changePage,
-        currentIndex: controller.currentPageIndex,
-        selectedItemColor: primaryColor(),
-        unselectedItemColor: Colors.black54,
-        showSelectedLabels: false,
-        items: [
-          const BottomNavigationBarItem(label: 'Inicio', icon: Icon(Icons.home)),
+    return BottomNavigationBarWidget(
+        onTapItem: controller.changePage,
+        indexSelectedItem: controller.currentPageIndex,
+        showTitles: true,
+        icons: [
+          BottomNavigationItemWidget(title: 'Inicio', icon: Icons.home),
           if(controller.userPreferences.getBool(isAprobadorKey))
-          const BottomNavigationBarItem(label: 'Aprobar', icon: Icon(Icons.list)),
+          BottomNavigationItemWidget(title: 'Aprobar', icon: Icons.list),
           if(controller.userPreferences.getBool(isEmpleadoKey))
-          const BottomNavigationBarItem(
-              label: 'Solicitudes', icon: Icon(Icons.checklist_outlined)),
-
-          const BottomNavigationBarItem(label: 'Configuración', icon: Icon(Icons.settings)),
+          BottomNavigationItemWidget(title: 'Solicitudes', icon: Icons.checklist_outlined),
+          BottomNavigationItemWidget(title: 'Configuración', icon: Icons.settings),
         ]);
   }
 }

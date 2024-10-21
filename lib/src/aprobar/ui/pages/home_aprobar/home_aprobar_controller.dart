@@ -4,6 +4,7 @@ import 'package:app_metor/src/home/domain/aprobar/entities/pendiente_entity.dart
 import 'package:app_metor/src/home/domain/aprobar/use_cases/get_pedientes_aprobar_use_case.dart';
 import 'package:app_metor/src/login/core/strings.dart';
 import 'package:app_metor/src/solicitar/core/strings.dart';
+import 'package:app_metor/src/solicitar/data/responses/create_user_request_response.dart';
 import 'package:app_metor/src/utils/core/preferencias_usuario.dart';
 import 'package:app_metor/src/utils/core/result_type.dart';
 import 'package:app_metor/src/utils/data/error_entity.dart';
@@ -37,14 +38,13 @@ class HomeAprobarController extends GetxController {
       ResultType<List<PendienteEntity>, ErrorEntity> result =
           await getPedientesAprobarUseCase.execute(cedula: cedula);
       if (result is Success) {
-        _pendientesEntity.addAll(result.data);
-        agrupadas = groupBy(_pendientesEntity.toList(), (e) => e.concepto ?? e.codigo );
-        _calcularImporte();
+        _pendientesEntity.addAll(result.data as List<PendienteEntity>);
+        _agrupar();
       } else {
 
       }
       validando = false;
-      update([validandoId, pageId]);
+      update([validandoId]);
     }
   }
 
@@ -60,12 +60,24 @@ class HomeAprobarController extends GetxController {
   }
 
   Future<void> goListadoAprobar(int index, Map<String, List<PendienteEntity>> groupByUsers) async{
-    await Get.to(() => ListadoAprobarPage(), arguments: {
+    Get.to<bool?>(() => ListadoAprobarPage(), arguments: {
       groupByUsersArgument: groupByUsers,
       conceptArgument: agrupadas.keys.elementAt(index),
     }, binding: ListadoAprobarBinding()
     );
+  }
 
-    getPendientesAprobar();
+  void clearElement({
+    required List<CreateUserRequestResponse> toDelete}){
+    for (var elementToDelete in toDelete) {
+      _pendientesEntity.removeWhere((e) => e.id == elementToDelete.id,);
+      _agrupar();
+    }
+  }
+
+  void _agrupar(){
+    agrupadas = groupBy(_pendientesEntity.toList(), (e) => e.concepto ?? e.codigo );
+    _calcularImporte();
+    update([pageId]);
   }
 }

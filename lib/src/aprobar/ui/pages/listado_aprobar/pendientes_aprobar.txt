@@ -1,0 +1,282 @@
+{
+    "d": {
+        "results": [
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=1,codigo='04791013')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=1,codigo='04791013')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 1,
+                "codigo": "04791013",
+                "nomcomp": "MOLINA    MAXIMINO",
+                "fechasolicitud": "20241011",
+                "importe": "100.000",
+                "codigocc": "3202",
+                "lgtxt": "SALDO INT. PRES. SOC.",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "GERENCIA TÉCNICA",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=1,codigo='04791013')/Parameters"
+                    }
+                }
+            },
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=3,codigo='12107154')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=3,codigo='12107154')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 3,
+                "codigo": "12107154",
+                "nomcomp": "ALVARADO SERRANO    EDGAR HUMBERTO",
+                "fechasolicitud": "20241013",
+                "importe": "76.000",
+                "codigocc": "3202",
+                "lgtxt": "SALDO INT. PRES. SOC.",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "SUPERINTENDENCIA SALUD  S",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=3,codigo='12107154')/Parameters"
+                    }
+                }
+            },
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=4,codigo='12107154')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=4,codigo='12107154')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 4,
+                "codigo": "12107154",
+                "nomcomp": "ALVARADO SERRANO    EDGAR HUMBERTO",
+                "fechasolicitud": "20241013",
+                "importe": "1000.400",
+                "codigocc": "3207",
+                "lgtxt": "PS SALDO DISPONIBLE",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "SUPERINTENDENCIA SALUD  S",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=4,codigo='12107154')/Parameters"
+                    }
+                }
+            },
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=5,codigo='14104704')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=5,codigo='14104704')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 5,
+                "codigo": "14104704",
+                "nomcomp": "CAMPOS HERNANDEZ    LUIS RAMON",
+                "fechasolicitud": "20241014",
+                "importe": "500.000",
+                "codigocc": "3202",
+                "lgtxt": "SALDO INT. PRES. SOC.",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "SUPERINTENDENCIA MECÁNICA",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=5,codigo='14104704')/Parameters"
+                    }
+                }
+            },
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=2,codigo='04791013')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=2,codigo='04791013')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 2,
+                "codigo": "04791013",
+                "nomcomp": "MOLINA    MAXIMINO",
+                "fechasolicitud": "20241011",
+                "importe": "150.000",
+                "codigocc": "3207",
+                "lgtxt": "PS SALDO DISPONIBLE",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "GERENCIA TÉCNICA",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=2,codigo='04791013')/Parameters"
+                    }
+                }
+            },
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=11,codigo='14104704')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=11,codigo='14104704')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 11,
+                "codigo": "14104704",
+                "nomcomp": "CAMPOS HERNANDEZ    LUIS RAMON",
+                "fechasolicitud": "20241019",
+                "importe": "4376.000",
+                "codigocc": "3208",
+                "lgtxt": "FAM SALDO DISPONIBLE",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "SUPERINTENDENCIA MECÁNICA",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=11,codigo='14104704')/Parameters"
+                    }
+                }
+            },
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=12,codigo='14104704')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=12,codigo='14104704')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 12,
+                "codigo": "14104704",
+                "nomcomp": "CAMPOS HERNANDEZ    LUIS RAMON",
+                "fechasolicitud": "20241019",
+                "importe": "100.000",
+                "codigocc": "/7AI",
+                "lgtxt": "SALDO INTERES AHORROS",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "SUPERINTENDENCIA MECÁNICA",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=12,codigo='14104704')/Parameters"
+                    }
+                }
+            },
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=9,codigo='10299520')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=9,codigo='10299520')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 9,
+                "codigo": "10299520",
+                "nomcomp": "LOZADA    CRUZ ARMANDO",
+                "fechasolicitud": "20241014",
+                "importe": "5000.000",
+                "codigocc": "3207",
+                "lgtxt": "PS SALDO DISPONIBLE",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "GERENCIA OPERACIONES PLAN",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=9,codigo='10299520')/Parameters"
+                    }
+                }
+            },
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=6,codigo='14104704')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=6,codigo='14104704')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 6,
+                "codigo": "14104704",
+                "nomcomp": "CAMPOS HERNANDEZ    LUIS RAMON",
+                "fechasolicitud": "20241014",
+                "importe": "1000.000",
+                "codigocc": "3207",
+                "lgtxt": "PS SALDO DISPONIBLE",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "SUPERINTENDENCIA MECÁNICA",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=6,codigo='14104704')/Parameters"
+                    }
+                }
+            },
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=10,codigo='10299520')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=10,codigo='10299520')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 10,
+                "codigo": "10299520",
+                "nomcomp": "LOZADA    CRUZ ARMANDO",
+                "fechasolicitud": "20241014",
+                "importe": "2000.000",
+                "codigocc": "3208",
+                "lgtxt": "FAM SALDO DISPONIBLE",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "GERENCIA OPERACIONES PLAN",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=10,codigo='10299520')/Parameters"
+                    }
+                }
+            },
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=7,codigo='10299520')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=7,codigo='10299520')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 7,
+                "codigo": "10299520",
+                "nomcomp": "LOZADA    CRUZ ARMANDO",
+                "fechasolicitud": "20241014",
+                "importe": "100.000",
+                "codigocc": "/7AI",
+                "lgtxt": "SALDO INTERES AHORROS",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "GERENCIA OPERACIONES PLAN",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=7,codigo='10299520')/Parameters"
+                    }
+                }
+            },
+            {
+                "__metadata": {
+                    "id": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=8,codigo='10299520')",
+                    "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=8,codigo='10299520')",
+                    "type": "ZV_CDS_HCM_PENDIENTES_CDS.ZV_CDS_HCM_PENDIENTESType"
+                },
+                "codigosap": "14201202",
+                "id": 8,
+                "codigo": "10299520",
+                "nomcomp": "LOZADA    CRUZ ARMANDO",
+                "fechasolicitud": "20241014",
+                "importe": "1500.000",
+                "codigocc": "3202",
+                "lgtxt": "SALDO INT. PRES. SOC.",
+                "codigoestado": "P",
+                "detalleestado": "PENDIENTE",
+                "area": "GERENCIA OPERACIONES PLAN",
+                "Parameters": {
+                    "__deferred": {
+                        "uri": "https://srvqas01.metoronline.com:50101/sap/opu/odata/sap/ZV_CDS_HCM_PENDIENTES_CDS/ZV_CDS_HCM_PENDIENTESSet(codigosap='14201202',id=8,codigo='10299520')/Parameters"
+                    }
+                }
+            }
+        ]
+    }
+}

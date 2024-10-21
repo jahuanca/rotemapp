@@ -37,7 +37,6 @@ class HomeInicioPage extends StatelessWidget {
                           title: 'Nombre:', value: _.userEntity.nomcomp),
                       _data(title: 'Área:', value: 'Contabilidad'),
                       _data(title: 'Perfil:', value: _.userEntity.detalleperfil),
-                      _data(title: 'Conexión:', value: '10/10/2024 \n12:04 pm'),
                     ],
                   ),
                 ),

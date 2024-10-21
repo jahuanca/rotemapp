@@ -1,0 +1,20 @@
+const resultsOfSuccess =[
+    {
+        "ID": 1,
+        "PERNR": 0,
+        "FECHA_TRANSF": "2024-10-19",
+        "HORA_TRANSF": "052331",
+        "ESTADO": "C",
+        "MENSAJE": "Solicitud se registró satisfactoriamente.",
+        "SUCCESS": "0"
+    },
+    {
+        "ID": 2,
+        "PERNR": 0,
+        "FECHA_TRANSF": "2024-10-19",
+        "HORA_TRANSF": "052333",
+        "ESTADO": "C",
+        "MENSAJE": "Solicitud se registró satisfactoriamente.",
+        "SUCCESS": "0"
+    }
+]

@@ -1,5 +1,6 @@
-
+import 'package:app_metor/src/aprobar/di/aprobar_binding.dart';
 import 'package:app_metor/src/aprobar/ui/pages/aprobar_page/aprobar_page.dart';
+import 'package:app_metor/src/aprobar/ui/pages/home_aprobar/home_aprobar_controller.dart';
 import 'package:app_metor/src/home/data/responses/manage_request_response.dart';
 import 'package:app_metor/src/home/domain/aprobar/entities/pendiente_entity.dart';
 import 'package:app_metor/src/home/domain/aprobar/use_cases/manage_request_use_case.dart';
@@ -16,12 +17,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:utils/utils.dart';
 
-class ListadoAprobarController extends GetxController{
-
-  Map<String,List<PendienteEntity>> pendientes = {};
-  Map<String,List<PendienteEntity>> pendientesMostradas = {};
+class ListadoAprobarController extends GetxController {
+  Map<String, List<PendienteEntity>> pendientes = {};
+  Map<String, List<PendienteEntity>> pendientesMostradas = {};
   String valorBuscar = emptyString;
-  TextEditingController valorBuscadoTextEditingController = TextEditingController();
+  TextEditingController valorBuscadoTextEditingController =
+      TextEditingController();
   FocusNode focusValorBuscado = FocusNode();
   bool isSelectionView = false;
   List<PendienteEntity> selections = [];
@@ -35,66 +36,62 @@ class ListadoAprobarController extends GetxController{
 
   @override
   void onInit() {
-    if(Get.arguments != null){
-      if(Get.arguments[groupByUsersArgument] != null){
-        pendientes.addAll(Get.arguments[groupByUsersArgument] as Map<String,List<PendienteEntity>>);
+    if (Get.arguments != null) {
+      if (Get.arguments[groupByUsersArgument] != null) {
+        pendientes.addAll(Get.arguments[groupByUsersArgument]
+            as Map<String, List<PendienteEntity>>);
         pendientesMostradas.addAll(pendientes);
-      }else{
-      }
-      if(Get.arguments[conceptArgument] != null){
+      } else {}
+      if (Get.arguments[conceptArgument] != null) {
         concepto = Get.arguments[conceptArgument] as String;
       }
-    }else{}
+    } else {}
     super.onInit();
   }
-  
-  void goAddSolicitud(){
-    Get.to(
-      ()=> NuevaSolicitudPage(), 
-      binding: NuevaSolicitudBinding()
-    );
+
+  void goAddSolicitud() {
+    Get.to(() => NuevaSolicitudPage(), binding: NuevaSolicitudBinding());
   }
 
-  void goDetailSolicitud(List<PendienteEntity> pendientesByUser){
-    Get.to(()=> const AprobarPage(), arguments: {
-      pendientesArgument: pendientesByUser
-    });
+  void goDetailSolicitud(List<PendienteEntity> pendientesByUser) {
+    Get.to(() => AprobarPage(),
+        arguments: {pendientesArgument: pendientesByUser},
+        binding: AprobarBinding());
   }
 
-  void changeSelectionView(){
+  void changeSelectionView() {
     selections.clear();
     isSelectionView = !isSelectionView;
     update([pageId]);
   }
 
-  void onChangeSelection(List<PendienteEntity> pendientes, bool? value){
-    if(value ?? false){
-      selections.addAll(
-        pendientes
+  void onChangeSelection(List<PendienteEntity> pendientes, bool? value) {
+    if (value ?? false) {
+      selections.addAll(pendientes);
+    } else {
+      selections.removeWhere(
+        (element) => element.nomcomp == pendientes.first.nomcomp,
       );
-    }
-    else{
-      selections.removeWhere((element) => element.nomcomp == pendientes.first.nomcomp,);
     }
     update([pageId]);
   }
 
-  void onChangedValorBuscar(String value){
+  void onChangedValorBuscar(String value) {
     valorBuscar = value;
     pendientesMostradas.clear();
     for (int i = 0; i < pendientes.values.length; i++) {
       String key = pendientes.keys.elementAt(i);
       List<PendienteEntity> pendienteByUser = pendientes[key]?.toList() ?? [];
-      if(pendienteByUser.any(
-        (e)=> e.nomcomp?.toLowerCase().contains(valorBuscar.toLowerCase()) ?? false)
-      ){
+      if (pendienteByUser.any((e) =>
+          e.nomcomp?.toLowerCase().contains(valorBuscar.toLowerCase()) ??
+          false)) {
         pendientesMostradas[key] = pendienteByUser;
       }
-    } 
+    }
     update([valorBuscadoId, listadoId]);
   }
 
-  void clearValorBuscado(){
+  void clearValorBuscado() {
     valorBuscadoTextEditingController.text = emptyString;
     pendientesMostradas.addAll(pendientes);
     valorBuscar = emptyString;
@@ -102,32 +99,28 @@ class ListadoAprobarController extends GetxController{
     update([valorBuscadoId, listadoId]);
   }
 
-  Future<void> goAprobar() async{
-    bool? result = await showDialogWidget(context: Get.overlayContext!, message: _createContent(
-      isReject: false
-    ));
-    if(result != null){
+  Future<void> goAprobar() async {
+    bool? result = await showDialogWidget(
+        context: Get.overlayContext!, message: _createContent(isReject: false));
+    if (result != null && result) {
       crearSolicitud(isReject: false);
     }
   }
 
   Future<void> goRechazar() async {
-    bool? result = await showDialogWidget(context: Get.overlayContext!, message: _createContent(
-      isReject: true
-    ));
-    if(result != null){
+    bool? result = await showDialogWidget(
+        context: Get.overlayContext!, message: _createContent(isReject: true));
+    if (result != null && result) {
       crearSolicitud(isReject: true);
     }
   }
 
-  String _createContent({
-    required bool isReject
-  }){
-    String content =  '¿Esta seguro de ';
+  String _createContent({required bool isReject}) {
+    String content = '¿Esta seguro de ';
     content += isReject ? 'rechazar' : 'aceptar';
-    content+=" las siguientes solicitudes?";
+    content += " las siguientes solicitudes?";
     for (PendienteEntity selected in selections) {
-      content+='\n S/ ${selected.importe} - ${selected.nomcomp}. ';
+      content += '\n S/ ${selected.importe} - ${selected.nomcomp}. ';
     }
     return content;
   }
@@ -137,13 +130,16 @@ class ListadoAprobarController extends GetxController{
   }) async {
     validando = true;
     update([validandoId]);
-    List<ManageRequestResponse> requests = selections.map(
-      (e) => ManageRequestResponse(
-        id: e.id.toString(), 
-        codigoestado: isReject ? 'R' : 'A',
-        nombre: e.nomcomp,
-        concepto: e.concepto,
-        ),).toList();
+    List<ManageRequestResponse> requests = selections
+        .map(
+          (e) => ManageRequestResponse(
+            id: e.id.toString(),
+            codigoestado: isReject ? 'R' : 'A',
+            nombre: e.nomcomp,
+            concepto: e.concepto,
+          ),
+        )
+        .toList();
     ResultType<List<CreateUserRequestResponse>, ErrorEntity> resultType =
         await manageRequestUseCase.execute(
       requests: requests,
@@ -152,18 +148,18 @@ class ListadoAprobarController extends GetxController{
       List<CreateUserRequestResponse> results =
           resultType.data as List<CreateUserRequestResponse>;
       for (int i = 0; i < results.length; i++) {
-        ManageRequestResponse request = requests
-            .firstWhere(
-              (e) => results[i].id.toString() == e.id,
-            );
-        results[i].amount = 
-           (results[i].success == "0") ? request.nombre : request.nombre;
-        results[i].detail = 
-           (results[i].success == "0") ? request.concepto : request.concepto;
+        ManageRequestResponse? request = requests.firstWhereOrNull(
+          (e) => results[i].id.toString() == e.id,
+        );
+        if (request != null) {
+          results[i].amount =
+              (results[i].success == "0") ? request.nombre : request.nombre;
+          results[i].detail =
+              (results[i].success == "0") ? request.concepto : request.concepto;
+        }
       }
-      Get.off(() => const ResultsPage(), arguments: {
-        responsesKey: results
-      });
+      //clearElement(toDelete: results);
+      Get.to(() => const ResultsPage(), arguments: {responsesKey: results});
     } else {
       showSnackbarWidget(
           context: Get.overlayContext!,
@@ -174,4 +170,21 @@ class ListadoAprobarController extends GetxController{
     update([validandoId]);
   }
 
+  void clearElement({required List<CreateUserRequestResponse> toDelete}) {
+    for (CreateUserRequestResponse elementToDelete in toDelete) {
+      for (String key in pendientes.keys) {
+        pendientes[key]?.removeWhere(
+          (e) => e.id == elementToDelete.id,
+        );
+        if(pendientes[key]?.isEmpty ?? false){
+          pendientes.remove(key);
+        }
+      }
+    }
+    pendientesMostradas.clear();
+    pendientesMostradas.addAll(pendientes);
+    selections.clear();
+    update([listadoId]);
+    Get.find<HomeAprobarController>().clearElement(toDelete: toDelete);
+  }
 }
